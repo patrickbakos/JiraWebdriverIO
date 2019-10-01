@@ -1,4 +1,6 @@
 import Page from './Page'
+require('dotenv').config();
+
 
 class MainPage extends Page {
 
@@ -17,15 +19,19 @@ class MainPage extends Page {
     get issueTypeSubTask() { return browser.$('//a[.="Sub-task"]')};
     get issueTypeDropdown() { return browser.$('//div[@id="issuetype-single-select"]/span[@class="icon aui-ss-icon noloading drop-menu"]')}
 
-
-
     open() {
         super.open(URL);
     }
     getUser() {
         return this.userHeadIcon.getAttribute('data-username')
     }
+    fillImportantIssueFields(project,summary) {
+        this.projectInputField.waitForEnabled();
+        this.fillField(this.projectInputField, project);
+        this.summaryInputField.waitForEnabled();
+        this.fillField(this.summaryInputField, summary);
+    }
 }
 
-const URL = 'https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa';
+const URL = process.env.URL;
 export default new MainPage();

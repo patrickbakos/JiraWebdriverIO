@@ -1,36 +1,29 @@
 import MainPage from "../../pages/MainPage.js";
 import IssuePage from "../../pages/IssuePage";
-import {login} from "../../test/TestBase";
+import LoginPage from "../../pages/LoginPage";
+import {editIssueData} from "../../test/testData";
+const assert = require('assert');
 require('dotenv').config();
+
+beforeEach(function() {
+    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+});
 
 describe('Edit issue page exits for MTP', () => {
     it('it exists', () => {
 
-        login();
-        MainPage.createIssueButton.click();
-        fillImportantFields('Main Testing Project (MTP)', 'Edit Issue Test');
-        MainPage.createIssueSubmitButton.waitForEnabled();
-        MainPage.createIssueSubmitButton.click();
-        MainPage.issueCreatedLink.waitForDisplayed();
-        MainPage.issueCreatedLink.click();
-        IssuePage.editIssueButtonIssuePage.click();
-        updateSummary('Edit Issue Test success');
-        IssuePage.editIssueSubmit.click();
-        browser.waitUntil(() => {
-            return IssuePage.issueTitle.getText() === 'Edit Issue Test success'
-        });
+        MainPage.click(MainPage.createIssueButton);
+        MainPage.fillImportantIssueFields(editIssueData.project, editIssueData.summary);
+        MainPage.waitForEnabled(MainPage.createIssueSubmitButton);
+        MainPage.click(MainPage.createIssueSubmitButton);
+        MainPage.waitForDisplayed(MainPage.issueCreatedLink);
+        MainPage.click(MainPage.issueCreatedLink);
+        IssuePage.click(IssuePage.editIssueButtonIssuePage);
+        IssuePage.updateSummary(editIssueData.summary_update);
+        IssuePage.click(IssuePage.editIssueSubmit);
+
+        assert.ok(browser.waitUntil(() => {
+            return IssuePage.getText(IssuePage.issueTitle) === editIssueData.summary_update
+        }))
     })
 });
-
-function updateSummary(summary) {
-    IssuePage.summaryInputField.waitForEnabled();
-    IssuePage.fillField(IssuePage.summaryInputField, summary)
-}
-
-function fillImportantFields(project,summary) {
-    MainPage.projectInputField.waitForEnabled();
-    MainPage.fillField(MainPage.projectInputField, project);
-    MainPage.summaryInputField.waitForEnabled();
-    MainPage.fillField(MainPage.summaryInputField, summary);
-
-}

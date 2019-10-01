@@ -5,3 +5,9 @@ export const creditentials = {
     'user19': 'eper',
     'saniy': 'manyi'
 };
+
+export const editIssueData = {
+    'project': 'Main Testing Project (MTP)',
+    'summary': 'Edit issue test',
+    'summary_update': 'Edit issue test success'
+};

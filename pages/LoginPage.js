@@ -7,6 +7,7 @@ class LoginPage extends Page {
     get passwordInputField() { return browser.$('//input[@id="login-form-password"]') }
     get loginBtn() { return browser.$('//input[@id="login-form-submit"]') }
     get loginErrorMessage() { return browser.$("//p[contains(.,'Sorry')]") }
+
     open() {
         super.open(URL)
     }
@@ -18,6 +19,6 @@ class LoginPage extends Page {
         this.loginBtn.click();
     }
 }
-const URL = 'https://jira.codecool.codecanvas.hu/login.jsp';
+const URL = process.env.URL + '/login.jsp';
 
 export default new LoginPage();
