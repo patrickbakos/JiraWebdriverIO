@@ -10,6 +10,13 @@ class LoginPage extends Page {
     open() {
         super.open(URL)
     }
+    login(username, password) {
+        this.open();
+        this.usernameInputField.waitForDisplayed();
+        this.fillField(this.usernameInputField, username);
+        this.fillField(this.passwordInputField, password);
+        this.loginBtn.click();
+    }
 }
 const URL = 'https://jira.codecool.codecanvas.hu/login.jsp';
 

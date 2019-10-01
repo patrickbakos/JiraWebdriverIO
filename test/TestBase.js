@@ -1,6 +1,5 @@
 import LoginPage from "../pages/LoginPage";
 
-export const assert = require('assert');
 require('dotenv').config();
 
 export function login() {

@@ -7,4 +7,8 @@ export default class Page {
         element.setValue(text)
     }
 
+    click(element) {
+        element.click()
+    }
+
 }
