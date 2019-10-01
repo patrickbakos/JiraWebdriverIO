@@ -11,10 +11,13 @@ export default class Page {
         element.click()
     }
     waitForDisplayed(element, time) {
-        element.waitForDisplayed(time)
+        return element.waitForDisplayed(time)
     }
     waitForEnabled(element, time) {
-        element.waitForEnabled(time)
+        return element.waitForEnabled(time)
+    }
+    isElementExisting(element) {
+        return element.isExisting()
     }
     getText(element) {
         return element.getText()

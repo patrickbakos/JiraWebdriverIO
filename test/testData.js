@@ -11,3 +11,8 @@ export const editIssueData = {
     'summary': 'Edit issue test',
     'summary_update': 'Edit issue test success'
 };
+
+export const createIssue = {
+    'project': 'Main Testing Project (MTP)',
+    'summary': 'Create Issue Test'
+};

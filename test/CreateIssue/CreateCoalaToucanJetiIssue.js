@@ -1,11 +1,15 @@
 import MainPage from "../../pages/MainPage.js";
 import {login} from "../TestBase";
+import LoginPage from "../../pages/LoginPage";
 const assert = require('assert');
 require('dotenv').config();
 
+beforeEach(function() {
+    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+});
+
 describe('create COALA, TOUCAN, JETI issues', () => {
     it('Possible issue types: Story, Task, Bug, Sub-task', () => {
-        login();
         MainPage.createIssueButton.click();
 
         createIssueForProject('COALA');

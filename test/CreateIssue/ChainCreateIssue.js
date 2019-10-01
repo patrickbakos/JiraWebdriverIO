@@ -1,20 +1,23 @@
 import MainPage from "../../pages/MainPage.js";
-import {fillImportantFields} from "./CreateIssue";
-import {login} from "../TestBase";
+import LoginPage from "../../pages/LoginPage";
+import {editIssueData} from "../testData";
 
 const assert = require('assert');
 require('dotenv').config();
 
+beforeEach(function() {
+    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+});
+
 describe('Chain create issues', () => {
 
         it('opens another "create issue" page after issue creation', () => {
-            login();
-            MainPage.createIssueButton.click();
-            fillImportantFields('Main Testing Project (MTP)','Create Issue Test');
-            MainPage.createAnotherIssueCheckbox.waitForEnabled();
-            MainPage.createAnotherIssueCheckbox.click();
-            MainPage.createIssueSubmitButton.waitForEnabled();
-            MainPage.createIssueSubmitButton.click();
-            assert.strictEqual(MainPage.createIssueModal.waitForEnabled(), true)
+            MainPage.click(MainPage.createIssueButton);
+            MainPage.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
+            MainPage.waitForEnabled(MainPage.createAnotherIssueCheckbox);
+            MainPage.click(MainPage.createAnotherIssueCheckbox);
+            MainPage.waitForEnabled(MainPage.createIssueSubmitButton);
+            MainPage.click(MainPage.createIssueSubmitButton);
+            assert.ok(MainPage.waitForEnabled(MainPage.createIssueModal))
         })
 });

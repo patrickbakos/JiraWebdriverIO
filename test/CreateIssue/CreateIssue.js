@@ -1,30 +1,26 @@
 import LoginPage from "../../pages/LoginPage.js";
 import MainPage from "../../pages/MainPage.js";
 import IssuePage from "../../pages/IssuePage.js";
-import {login} from "../../test/TestBase";
+import {editIssueData} from "../../test/testData";
 const assert = require('assert');
 require('dotenv').config();
 
+
+beforeEach(function() {
+    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+});
+
 describe('Create an issue', () => {
     it('creates an MTP issue', () => {
-        login();
-        MainPage.createIssueButton.click();
-        fillImportantFields('Main Testing Project (MTP)','Create Issue Test');
-        MainPage.createIssueSubmitButton.waitForEnabled();
-        MainPage.createIssueSubmitButton.click();
-        MainPage.issueCreatedLink.waitForDisplayed();
-        MainPage.issueCreatedLink.click();
-        IssuePage.issueTitle.waitForDisplayed();
-        assert.strictEqual(IssuePage.issueTitle.getText(), 'Create Issue Test')
+        MainPage.click(MainPage.createIssueButton);
+        MainPage.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
+        MainPage.waitForEnabled(MainPage.createIssueSubmitButton);
+        MainPage.click(MainPage.createIssueSubmitButton);
+        MainPage.waitForDisplayed(MainPage.issueCreatedLink);
+        MainPage.createIssue(editIssueData.project, editIssueData.summary);
+        MainPage.click(MainPage.issueCreatedLink);
+        IssuePage.waitForDisplayed(IssuePage.issueTitle);
+        assert.strictEqual(IssuePage.getText(IssuePage.issueTitle), editIssueData.summary)
     });
 
 });
-
-export function fillImportantFields(project,summary) {
-
-    MainPage.projectInputField.waitForEnabled();
-    MainPage.fillField(MainPage.projectInputField, project);
-    MainPage.summaryInputField.waitForEnabled();
-    MainPage.fillField(MainPage.summaryInputField, summary);
-
-}

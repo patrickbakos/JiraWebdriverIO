@@ -1,4 +1,5 @@
 import Page from './Page'
+import {editIssueData} from "../test/testData";
 require('dotenv').config();
 
 
@@ -22,16 +23,35 @@ class MainPage extends Page {
     open() {
         super.open(URL);
     }
+
     getUser() {
         return this.userHeadIcon.getAttribute('data-username')
     }
-    fillImportantIssueFields(project,summary) {
+
+    fillImportantIssueFields(project, summary) {
         this.projectInputField.waitForEnabled();
         this.fillField(this.projectInputField, project);
         this.summaryInputField.waitForEnabled();
         this.fillField(this.summaryInputField, summary);
     }
+
+    createIssue(project, summary) {
+        this.click(this.createIssueButton);
+        this.fillImportantIssueFields(project,summary);
+        this.waitForEnabled(this.createIssueSubmitButton);
+        this.click(this.createIssueSubmitButton);
+        this.waitForDisplayed(this.issueCreatedLink);
+    }
+
+    checkIssueTypes(element) {
+        this.createIssueIssueTypeInput.keys(' ');
+        this.issueTypeDropdown.click();
+        browser.waitUntil(() => {
+            return this.isElementExisting(element)
+        });
+    }
 }
+
 
 const URL = process.env.URL;
 export default new MainPage();

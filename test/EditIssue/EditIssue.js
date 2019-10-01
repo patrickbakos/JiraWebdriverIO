@@ -18,7 +18,7 @@ describe('Edit issue page exits for MTP', () => {
         MainPage.click(MainPage.createIssueSubmitButton);
         MainPage.waitForDisplayed(MainPage.issueCreatedLink);
         MainPage.click(MainPage.issueCreatedLink);
-        IssuePage.click(IssuePage.editIssueButtonIssuePage);
+        IssuePage.click(IssuePage.editIssueButton);
         IssuePage.updateSummary(editIssueData.summary_update);
         IssuePage.click(IssuePage.editIssueSubmit);
 
@@ -27,3 +27,4 @@ describe('Edit issue page exits for MTP', () => {
         }))
     })
 });
+
