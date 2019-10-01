@@ -7,20 +7,24 @@ require('dotenv').config();
 
 
 beforeEach(function() {
-    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+
+    let lp = new LoginPage();
+    lp.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
 });
 
 describe('Create an issue', () => {
-    it('creates an MTP issue', () => {
-        MainPage.click(MainPage.createIssueButton);
-        MainPage.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
-        MainPage.waitForEnabled(MainPage.createIssueSubmitButton);
-        MainPage.click(MainPage.createIssueSubmitButton);
-        MainPage.waitForDisplayed(MainPage.issueCreatedLink);
-        MainPage.createIssue(editIssueData.project, editIssueData.summary);
-        MainPage.click(MainPage.issueCreatedLink);
-        IssuePage.waitForDisplayed(IssuePage.issueTitle);
-        assert.strictEqual(IssuePage.getText(IssuePage.issueTitle), editIssueData.summary)
-    });
 
+    let mp = new MainPage();
+    let ip = new IssuePage();
+
+    it('creates an MTP issue', () => {
+        mp.click(mp.createIssueButton);
+        mp.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
+        mp.waitForEnabled(mp.createIssueSubmitButton);
+        mp.click(mp.createIssueSubmitButton);
+        mp.waitForDisplayed(mp.issueCreatedLink);
+        mp.click(mp.issueCreatedLink);
+        ip.waitForDisplayed(ip.issueTitle);
+        assert.strictEqual(ip.getText(ip.issueTitle), editIssueData.summary)
+    });
 });

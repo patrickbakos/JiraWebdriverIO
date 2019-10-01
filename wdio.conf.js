@@ -20,7 +20,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/CreateIssue/ChainCreateIssue.js'
+        './test/CreateIssue/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -55,7 +55,7 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 2,
         //
-        browserName: 'chrome',
+        browserName: 'chrome'
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs

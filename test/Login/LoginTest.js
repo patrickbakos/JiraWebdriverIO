@@ -6,16 +6,19 @@ require('dotenv').config();
 
 describe('Log in with creditentials', () => {
 
+    let lp = new LoginPage();
+    let mp = new MainPage();
+
     it('should log in', () => {
-        LoginPage.open();
-        LoginPage.fillField(LoginPage.usernameInputField, process.env.JIRA_USERNAME);
-        LoginPage.fillField(LoginPage.passwordInputField, process.env.JIRA_PASSWORD);
-        LoginPage.click(LoginPage.loginBtn);
-        assert.strictEqual(MainPage.getUser(), process.env.JIRA_USERNAME)
+        lp.open();
+        lp.fillField(lp.usernameInputField, process.env.JIRA_USERNAME);
+        lp.fillField(lp.passwordInputField, process.env.JIRA_PASSWORD);
+        lp.click(lp.loginBtn);
+        assert.strictEqual(mp.getUser(), process.env.JIRA_USERNAME)
     });
 
     for (let item in creditentials) it("shouldn't log in", () => {
-        LoginPage.login(item, creditentials[item]);
-        assert.strictEqual(LoginPage.loginErrorMessage.getText(), 'Sorry, your username and password are incorrect - please try again.')
+        lp.login(item, creditentials[item]);
+        assert.strictEqual(lp.loginErrorMessage.getText(), 'Sorry, your username and password are incorrect - please try again.')
     })
 });

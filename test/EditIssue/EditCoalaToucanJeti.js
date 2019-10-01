@@ -3,15 +3,20 @@ import LoginPage from "../../pages/LoginPage";
 require('dotenv').config();
 
 beforeEach(function() {
-    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+
+    let lp = new LoginPage();
+    lp.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
 });
 
 describe('Edit issue page exits for COALA, TOUCAN, JETI', () => {
+
+    let ip = new IssuePage();
+
     it('it exists', () => {
 
-        IssuePage.issueButtonExists('COALA')
-        IssuePage.issueButtonExists('TOUCAN');
-        IssuePage.issueButtonExists('JETI');
+        ip.issueButtonExists('COALA');
+        ip.issueButtonExists('TOUCAN');
+        ip.issueButtonExists('JETI');
     })
 });
 

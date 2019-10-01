@@ -1,7 +1,7 @@
 import Page from './Page'
 require('dotenv').config();
 
-class LoginPage extends Page {
+export default class LoginPage extends Page {
 
     get usernameInputField() { return browser.$('//input[@id="login-form-username"]') }
     get passwordInputField() { return browser.$('//input[@id="login-form-password"]') }
@@ -11,7 +11,9 @@ class LoginPage extends Page {
     open() {
         super.open(URL)
     }
+
     login(username, password) {
+
         this.open();
         this.usernameInputField.waitForDisplayed();
         this.fillField(this.usernameInputField, username);
@@ -19,6 +21,5 @@ class LoginPage extends Page {
         this.loginBtn.click();
     }
 }
-const URL = process.env.URL + '/login.jsp';
 
-export default new LoginPage();
+const URL = process.env.URL + '/login.jsp';

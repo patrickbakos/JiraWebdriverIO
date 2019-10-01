@@ -6,18 +6,22 @@ const assert = require('assert');
 require('dotenv').config();
 
 beforeEach(function() {
-    LoginPage.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
+
+    let lp = new LoginPage();
+    lp.login(process.env.JIRA_USERNAME, process.env.JIRA_PASSWORD);
 });
 
 describe('Chain create issues', () => {
 
+    let mp = new MainPage();
+
         it('opens another "create issue" page after issue creation', () => {
-            MainPage.click(MainPage.createIssueButton);
-            MainPage.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
-            MainPage.waitForEnabled(MainPage.createAnotherIssueCheckbox);
-            MainPage.click(MainPage.createAnotherIssueCheckbox);
-            MainPage.waitForEnabled(MainPage.createIssueSubmitButton);
-            MainPage.click(MainPage.createIssueSubmitButton);
-            assert.ok(MainPage.waitForEnabled(MainPage.createIssueModal))
+            mp.click(mp.createIssueButton);
+            mp.fillImportantIssueFields(editIssueData.project,editIssueData.summary);
+            mp.waitForEnabled(mp.createAnotherIssueCheckbox);
+            mp.click(mp.createAnotherIssueCheckbox);
+            mp.waitForEnabled(mp.createIssueSubmitButton);
+            mp.click(mp.createIssueSubmitButton);
+            assert.ok(mp.waitForEnabled(mp.createIssueModal))
         })
 });
