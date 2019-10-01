@@ -22,6 +22,7 @@ describe('Chain create issues', () => {
             mp.click(mp.createAnotherIssueCheckbox);
             mp.waitForEnabled(mp.createIssueSubmitButton);
             mp.click(mp.createIssueSubmitButton);
+
             assert.ok(mp.waitForEnabled(mp.createIssueModal))
         })
 });

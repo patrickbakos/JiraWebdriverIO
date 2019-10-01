@@ -24,6 +24,7 @@ describe('Edit issue page exits for MTP', () => {
         mp.click(mp.createIssueSubmitButton);
         mp.waitForDisplayed(mp.issueCreatedLink);
         mp.click(mp.issueCreatedLink);
+        ip.waitForEnabled(ip.editIssueButton);
         ip.click(ip.editIssueButton);
         ip.updateSummary(editIssueData.summary_update);
         ip.click(ip.editIssueSubmit);

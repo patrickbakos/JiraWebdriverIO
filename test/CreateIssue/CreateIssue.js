@@ -25,6 +25,7 @@ describe('Create an issue', () => {
         mp.waitForDisplayed(mp.issueCreatedLink);
         mp.click(mp.issueCreatedLink);
         ip.waitForDisplayed(ip.issueTitle);
+
         assert.strictEqual(ip.getText(ip.issueTitle), editIssueData.summary)
     });
 });

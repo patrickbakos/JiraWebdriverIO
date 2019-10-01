@@ -5,7 +5,8 @@ export default class IssuePage extends Page {
 
     get issueTitle() {return browser.$('//h1[@id="summary-val"]')};
     get summaryInputField() { return browser.$('//input[@id="summary"]')};
-    get editIssueButton() { return browser.$('//div[@id="opsbar-edit-issue_container"]')}
+    get editIssueButtonContainer() { return browser.$('//div[@id="opsbar-edit-issue_container"]')}
+    get editIssueButton() { return browser.$('//a[@id="edit-issue"]')}
     get editIssueSubmit() { return browser.$('//input[@id="edit-issue-submit"]')};
 
     open(id) {
@@ -17,11 +18,11 @@ export default class IssuePage extends Page {
         this.summaryInputField.waitForEnabled();
         this.fillField(this.summaryInputField, summary)
     }
-    issueButtonExists(project)
-    {
+
+    issueButtonExists(project) {
 
         this.open(project);
-        return this.editIssueButton.waitForEnabled() && this.editIssueButton.waitForDisplayed()
+        return this.editIssueButtonContainer.waitForEnabled() && this.editIssueButtonContainer.waitForDisplayed()
     }
 }
 
